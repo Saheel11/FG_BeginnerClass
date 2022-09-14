@@ -19,7 +19,7 @@ public class CharacterController : MonoBehaviour
             transform.Translate(transform.forward * speed * Time.deltaTime * Input.GetAxis("Vertical"));
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && IsTouchingFloor())
         {
             Jump();
         }
@@ -28,6 +28,12 @@ public class CharacterController : MonoBehaviour
     private void Jump()
     {
         characterBody.AddForce(Vector3.up * 100f);
+    }
+
+    private bool IsTouchingFloor()
+    {
+        RaycastHit hit;
+        return Physics.SphereCast(transform.position, 0.15f, -transform.up, out hit, 1f);
     }
     
 }
